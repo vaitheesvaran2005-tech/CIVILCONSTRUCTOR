@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Professional Civil Construction Estimator - Calculate material costs accurately for your projects">
+
+    <meta name="theme-color" content="#f97316">
+
+    <meta name="keywords"
+        content="civil construction, estimator, cost calculator, materials">
+
+    <title>Civil Construction Estimator | Professional Builder's Tool</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="top-header">
+
+        <div class="header-content">
+
+            <div class="header-title">
+
+                <h1>
+                    <i class="fas fa-hard-hat"></i>
+                    Civil Construction Estimator
+                </h1>
+
+                <p>
+                    Professional Material & Cost Estimation Tool
+                </p>
+
+            </div>
+
+            <div class="header-controls">
+
+                <button
+                    class="btn-icon"
+                    id="theme-toggle"
+                    title="Toggle Dark Mode">
+
+                    <i class="fas fa-moon"></i>
+
+                </button>
+
+                <button
+                    class="btn-icon"
+                    id="history-btn"
+                    title="View Saved Estimates">
+
+                    <i class="fas fa-history"></i>
+
+                </button>
+
+                <button
+                    class="btn-icon"
+                    id="help-btn"
+                    title="Help & Instructions">
+
+                    <i class="fas fa-circle-question"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="progress-bar"></div>
+
+    </header>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div class="toast-container"></div>
+
+
+    <!-- ================= HISTORY MODAL ================= -->
+
+    <div class="modal" id="history-modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>Saved Estimates</h2>
+
+                <button
+                    class="close-btn"
+                    id="close-history">
+
+                    &times;
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div
+                    id="history-list"
+                    class="history-list">
+
+                    <p class="empty-state">
+                        No saved estimates yet.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= HELP MODAL ================= -->
+
+    <div class="modal" id="help-modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>Help & Instructions</h2>
+
+                <button
+                    class="close-btn"
+                    id="close-help">
+
+                    &times;
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="help-content">
+
+                    <h3>How to Use</h3>
+
+                    <ol>
+
+                        <li>
+                            Enter Foundation details
+                        </li>
+
+                        <li>
+                            Calculate Foundation
+                        </li>
+
+                        <li>
+                            Click Next Stage
+                        </li>
+
+                        <li>
+                            Enter Plinth → Lintel details
+                        </li>
+
+                        <li>
+                            Calculate Plinth → Lintel
+                        </li>
+
+                        <li>
+                            Click Next Stage
+                        </li>
+
+                        <li>
+                            Enter Lintel → Roof details
+                        </li>
+
+                        <li>
+                            Calculate Stage 3
+                        </li>
+
+                    </ol>
+
+
+                    <h3>
+                        Concrete Mix
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            M15 = 1 : 2 : 4
+                        </li>
+
+                        <li>
+                            M20 = 1 : 1.5 : 3
+                        </li>
+
+                        <li>
+                            M25 = 1 : 1 : 2
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STAGE 1
+    ===================================================== -->
+
+    <section
+        class="card"
+        id="foundation-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    Stage 01: Foundation → Plinth
+                </h2>
+
+                <p class="section-description">
+                    Enter project and foundation details
+                </p>
+
+            </div>
+
+            <span class="badge">
+                01
+            </span>
+
+        </div>
+
+
+        <!-- CUSTOMER -->
+
+        <h3 class="sub-title">
+
+            <i class="fas fa-user"></i>
+
+            Customer / Project Details
+
+        </h3>
+
+
+        <div class="input-grid">
+
+            <div class="input-group">
+
+                <label for="customer-name">
+                    Customer Name
+                </label>
+
+                <input
+                    type="text"
+                    id="customer-name"
+                    placeholder="Example: Mr. Kumar"
+                    class="next-input">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="project-name">
+                    Project Name
+                </label>
+
+                <input
+                    type="text"
+                    id="project-name"
+                    placeholder="Example: Residential House"
+                    class="next-input">
+
+            </div>
+
+        </div>
+
+
+        <!-- BUILDING -->
+
+        <h3 class="sub-title">
+
+            <i class="fas fa-building"></i>
+
+            Building Details
+
+        </h3>
+
+
+        <div class="input-grid">
+
+            <div class="input-group">
+
+                <label for="f-length">
+                    Building Length (ft)
+                </label>
+
+                <input
+                    type="number"
+                    id="f-length"
+                    placeholder="30"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="f-width">
+                    Building Width (ft)
+                </label>
+
+                <input
+                    type="number"
+                    id="f-width"
+                    placeholder="20"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="f-footings">
+                    Number of Footings
+                </label>
+
+                <input
+                    type="number"
+                    id="f-footings"
+                    placeholder="12"
+                    class="next-input"
+                    min="1"
+                    step="1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="f-footing-volume">
+                    Footing Concrete per Unit (CFT)
+                </label>
+
+                <input
+                    type="number"
+                    id="f-footing-volume"
+                    placeholder="12.5"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="f-pcc-volume">
+                    PCC per Footing (CFT)
+                </label>
+
+                <input
+                    type="number"
+                    id="f-pcc-volume"
+                    placeholder="12"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="f-mix">
+                    Concrete Mix Ratio
+                </label>
+
+                <select
+                    id="f-mix"
+                    class="next-input">
+
+                    <option value="m15">
+                        M15 (1 : 2 : 4)
+                    </option>
+
+                    <option
+                        value="m20"
+                        selected>
+
+                        M20 (1 : 1.5 : 3)
+
+                    </option>
+
+                    <option value="m25">
+                        M25 (1 : 1 : 2)
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- RATES -->
+
+        <h3 class="sub-title">
+
+            <i class="fas fa-coins"></i>
+
+            Material Rates
+
+        </h3>
+
+
+        <div class="input-grid">
+
+            <div class="input-group">
+
+                <label for="f-cement-rate">
+                    Cement Rate (INR/bag)
+                </label>
+
+                <input
+                    type="number"
+                    id="f-cement-rate"
+                    value="418"
+                    class="next-input"
+                    min="0"
+                    step="1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="f-sand-rate">
+                    Sand Rate (INR/CFT)
+                </label>
+
+                <input
+                    type="number"
+                    id="f-sand-rate"
+                    value="61.50"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="f-jalli-rate">
+                    Aggregate Rate (INR/CFT)
+                </label>
+
+                <input
+                    type="number"
+                    id="f-jalli-rate"
+                    value="50"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+        </div>
+
+
+        <div class="button-group">
+
+            <button
+                class="calculate-btn"
+                onclick="calculateFoundation()">
+
+                <i class="fas fa-calculator"></i>
+
+                Calculate Foundation
+
+            </button>
+
+
+            <button
+                class="btn-secondary"
+                onclick="resetFoundationForm()">
+
+                <i class="fas fa-redo"></i>
+
+                Clear Form
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="foundation-result"
+            class="result-card">
+        </div>
+
+
+        <div class="action-buttons">
+
+            <button
+                id="foundation-pdf-btn"
+                class="pdf-btn"
+                onclick="generateFoundationPDF()"
+                style="display:none;">
+
+                <i class="fas fa-file-pdf"></i>
+
+                Generate PDF
+
+            </button>
+
+
+            <button
+                id="foundation-save-btn"
+                class="save-btn"
+                onclick="saveEstimate('foundation')"
+                style="display:none;">
+
+                <i class="fas fa-save"></i>
+
+                Save Estimate
+
+            </button>
+
+
+            <button
+                id="next-stage-btn"
+                class="next-btn"
+                onclick="goToPlinthLintel()"
+                style="display:none;">
+
+                <i class="fas fa-arrow-right"></i>
+
+                Next Stage
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STAGE 2
+    ===================================================== -->
+
+    <section
+        class="card"
+        id="plinth-lintel-section"
+        style="display:none;">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    Stage 02: Plinth → Lintel Level
+                </h2>
+
+                <p class="section-description">
+                    Enter wall and brickwork details
+                </p>
+
+            </div>
+
+            <span class="badge">
+                02
+            </span>
+
+        </div>
+
+
+        <h3 class="sub-title">
+
+            <i class="fas fa-layer-group"></i>
+
+            Wall Details
+
+        </h3>
+
+
+        <div class="input-grid">
+
+            <div class="input-group">
+
+                <label for="p-length">
+                    Wall Length (ft)
+                </label>
+
+                <input
+                    type="number"
+                    id="p-length"
+                    placeholder="100"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="p-height">
+                    Wall Height (ft)
+                </label>
+
+                <input
+                    type="number"
+                    id="p-height"
+                    placeholder="7"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="p-thickness">
+                    Wall Thickness
+                </label>
+
+                <select
+                    id="p-thickness"
+                    class="next-input">
+
+                    <option value="0.375">
+                        4.5 inch (Single Brick)
+                    </option>
+
+                    <option value="0.75">
+                        9 inch (Double Brick)
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="p-brick-size">
+                    Brick Size
+                </label>
+
+                <select
+                    id="p-brick-size"
+                    class="next-input">
+
+                    <option value="0.07">
+                        Standard Brick
+                    </option>
+
+                    <option value="0.075">
+                        Modular Brick
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <h3 class="sub-title">
+
+            <i class="fas fa-coins"></i>
+
+            Material Rates
+
+        </h3>
+
+
+        <div class="input-grid">
+
+            <div class="input-group">
+
+                <label for="p-brick-rate">
+                    Brick Rate (INR/piece)
+                </label>
+
+                <input
+                    type="number"
+                    id="p-brick-rate"
+                    value="10"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="p-cement-rate">
+                    Cement Rate (INR/bag)
+                </label>
+
+                <input
+                    type="number"
+                    id="p-cement-rate"
+                    value="418"
+                    class="next-input"
+                    min="0"
+                    step="1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="p-sand-rate">
+                    Sand Rate (INR/CFT)
+                </label>
+
+                <input
+                    type="number"
+                    id="p-sand-rate"
+                    value="61.50"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+        </div>
+
+
+        <div class="button-group">
+
+            <button
+                class="calculate-btn"
+                onclick="calculatePlinthLintel()">
+
+                <i class="fas fa-calculator"></i>
+
+                Calculate Plinth → Lintel
+
+            </button>
+
+
+            <button
+                class="btn-secondary"
+                onclick="resetPlinthForm()">
+
+                <i class="fas fa-redo"></i>
+
+                Clear Form
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="plinth-result"
+            class="result-card">
+        </div>
+
+
+        <div class="action-buttons">
+
+            <button
+                class="pdf-btn"
+                id="plinth-pdf-btn"
+                onclick="generatePlinthPDF()"
+                style="display:none;">
+
+                <i class="fas fa-file-pdf"></i>
+
+                Generate PDF
+
+            </button>
+
+
+            <button
+                id="plinth-save-btn"
+                class="save-btn"
+                onclick="saveEstimate('plinth')"
+                style="display:none;">
+
+                <i class="fas fa-save"></i>
+
+                Save Estimate
+
+            </button>
+
+
+            <!-- IMPORTANT: STAGE 3 BUTTON -->
+
+            <button
+                id="stage3-btn"
+                class="next-btn"
+                onclick="goToStage3()"
+                style="display:none;">
+
+                <i class="fas fa-arrow-right"></i>
+
+                Next Stage
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STAGE 3
+         LINTEL → ROOF
+    ===================================================== -->
+
+    <section
+        class="card"
+        id="stage3-section"
+        style="display:none;">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    Stage 03: Lintel → Roof
+                </h2>
+
+                <p class="section-description">
+                    Brickwork, mortar and RCC roof slab estimation
+                </p>
+
+            </div>
+
+            <span class="badge">
+                03
+            </span>
+
+        </div>
+
+
+        <!-- ================= BRICKWORK ================= -->
+
+        <h3 class="sub-title">
+
+            <i class="fas fa-house"></i>
+
+            Lintel → Roof Brickwork
+
+        </h3>
+
+
+        <div class="input-grid">
+
+            <div class="input-group">
+
+                <label for="s3-wall-length">
+                    Wall Length (ft)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-wall-length"
+                    placeholder="100"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="s3-wall-height">
+                    Wall Height (ft)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-wall-height"
+                    placeholder="4"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="s3-wall-thickness">
+                    Wall Thickness
+                </label>
+
+                <select
+                    id="s3-wall-thickness"
+                    class="next-input">
+
+                    <option value="0.375">
+                        4.5 inch
+                    </option>
+
+                    <option value="0.75">
+                        9 inch
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="s3-brick-size">
+                    Brick Volume (CFT)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-brick-size"
+                    value="0.07"
+                    class="next-input"
+                    min="0.001"
+                    step="0.001">
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= ROOF ================= -->
+
+        <h3 class="sub-title">
+
+            <i class="fas fa-layer-group"></i>
+
+            RCC Roof Slab Details
+
+        </h3>
+
+
+        <div class="input-grid">
+
+            <div class="input-group">
+
+                <label for="s3-roof-length">
+                    Roof Length (ft)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-roof-length"
+                    placeholder="30"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="s3-roof-width">
+                    Roof Width (ft)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-roof-width"
+                    placeholder="20"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="s3-slab-thickness">
+                    Slab Thickness (inch)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-slab-thickness"
+                    value="5"
+                    class="next-input"
+                    min="1"
+                    step="0.5">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="s3-mix">
+                    Roof Concrete Mix
+                </label>
+
+                <select
+                    id="s3-mix"
+                    class="next-input">
+
+                    <option value="m15">
+                        M15 (1 : 2 : 4)
+                    </option>
+
+                    <option
+                        value="m20"
+                        selected>
+
+                        M20 (1 : 1.5 : 3)
+
+                    </option>
+
+                    <option value="m25">
+                        M25 (1 : 1 : 2)
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RATES ================= -->
+
+        <h3 class="sub-title">
+
+            <i class="fas fa-coins"></i>
+
+            Stage 3 Material Rates
+
+        </h3>
+
+
+        <div class="input-grid">
+
+            <div class="input-group">
+
+                <label for="s3-brick-rate">
+                    Brick Rate (INR/piece)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-brick-rate"
+                    value="10"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="s3-cement-rate">
+                    Cement Rate (INR/bag)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-cement-rate"
+                    value="418"
+                    class="next-input"
+                    min="0"
+                    step="1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="s3-sand-rate">
+                    Sand Rate (INR/CFT)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-sand-rate"
+                    value="61.50"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="s3-aggregate-rate">
+                    Coarse Aggregate Rate (INR/CFT)
+                </label>
+
+                <input
+                    type="number"
+                    id="s3-aggregate-rate"
+                    value="50"
+                    class="next-input"
+                    min="0"
+                    step="0.1">
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= CALCULATE ================= -->
+
+        <div class="button-group">
+
+            <button
+                class="calculate-btn"
+                onclick="calculateStage3()">
+
+                <i class="fas fa-calculator"></i>
+
+                Calculate Lintel → Roof
+
+            </button>
+
+
+            <button
+                class="btn-secondary"
+                onclick="resetStage3Form()">
+
+                <i class="fas fa-redo"></i>
+
+                Clear Form
+
+            </button>
+
+        </div>
+
+
+        <!-- ================= RESULT ================= -->
+
+        <div
+            id="stage3-result"
+            class="result-card">
+        </div>
+
+
+        <!-- ================= ACTION BUTTONS ================= -->
+
+        <div class="action-buttons">
+
+            <button
+                id="stage3-pdf-btn"
+                class="pdf-btn"
+                onclick="generateStage3PDF()"
+                style="display:none;">
+
+                <i class="fas fa-file-pdf"></i>
+
+                Generate PDF
+
+            </button>
+
+
+            <button
+                id="stage3-save-btn"
+                class="save-btn"
+                onclick="saveEstimate('stage3')"
+                style="display:none;">
+
+                <i class="fas fa-save"></i>
+
+                Save Estimate
+
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
